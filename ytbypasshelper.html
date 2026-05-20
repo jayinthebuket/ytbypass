@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT School Fuckaround</title>
+    <title>School Video Player</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
@@ -23,13 +23,13 @@
         }
         
         h1 {
-            color: #ff00ff;
-            text-shadow: 0 0 10px #ff00ff;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
             margin-bottom: 10px;
         }
         
         .subtitle {
-            color: #00ffff;
+            color: #ffffff;
             margin-bottom: 30px;
         }
         
@@ -50,14 +50,14 @@
         
         button {
             cursor: pointer;
-            background: #220022;
-            color: #ff00ff;
-            border-color: #ff00ff;
+            background: #002200;
+            color: #00ff00;
+            border-color: #00ff00;
         }
         
         button:hover {
-            background: #440044;
-            box-shadow: 0 0 15px #ff00ff;
+            background: #004400;
+            box-shadow: 0 0 15px #00ff00;
         }
         
         .video-container {
@@ -91,24 +91,24 @@
         
         .warning {
             color: #ffff00;
-            font-size: 12px;
+            font-size: 13px;
             margin: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>YT SCHOOL MODE</h1>
-        <p class="subtitle">fuck the filter</p>
+        <h1>SCHOOL VIDEO PLAYER</h1>
+        <p class="subtitle">Watch YouTube Videos</p>
         
-        <input type="text" id="urlInput" placeholder="Paste youtube url or video id here" autocomplete="off">
-        <button onclick="loadVideo()">WATCH</button>
+        <input type="text" id="urlInput" placeholder="Paste YouTube URL or Video ID here" autocomplete="off">
+        <button onclick="loadVideo()">PLAY VIDEO</button>
         
         <div style="margin: 20px;">
             <select id="proxySelect">
-                <option value="invidious">Invidious (fastest usually)</option>
+                <option value="invidious">Invidious (Recommended)</option>
                 <option value="piped">Piped</option>
-                <option value="embed">Basic Embed (sometimes works)</option>
+                <option value="embed">Standard Embed</option>
             </select>
         </div>
         
@@ -117,12 +117,12 @@
         </div>
         
         <div class="warning">
-            If one doesn't work, try another instance or different proxy.<br>
-            Schools update blocks daily. This shit might die any second.
+            If the video does not load, try a different option from the dropdown.<br>
+            Proxies may stop working over time.
         </div>
         
         <div class="history">
-            <h2 style="color:#ff00ff;">Recent Shit You Watched</h2>
+            <h2 style="color:#00ffff;">Recently Watched</h2>
             <div id="historyList"></div>
         </div>
     </div>
@@ -163,7 +163,6 @@
             let embedUrl = '';
             
             if (proxy === 'invidious') {
-                // Try a few public instances
                 const instances = [
                     'https://yewtu.be',
                     'https://inv.nadeko.net',
@@ -177,7 +176,6 @@
                 embedUrl = `https://piped.video/embed/${videoId}`;
             } 
             else {
-                // basic youtube embed (might be blocked)
                 embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
             }
             
@@ -185,7 +183,7 @@
             iframe.src = embedUrl;
             document.getElementById('videoArea').style.display = 'block';
             
-            saveToHistory(`Video ${videoId}`, input);
+            saveToHistory(`Video ${videoId.substring(0,6)}...`, input);
         }
         
         function directLoad(url) {
@@ -193,16 +191,11 @@
             loadVideo();
         }
         
-        // Keyboard support (Enter key)
         document.getElementById('urlInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') loadVideo();
         });
         
-        // Load history on start
         renderHistory();
-        
-        // Bonus: Paste from clipboard button (if allowed)
-        console.log("%cYT School proxy loaded. Don't get caught dumbass.", "color:#ff00ff; font-size:14px");
     </script>
 </body>
 </html>
